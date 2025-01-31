@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-    id        String  @id @default(cuid())
+    id String @id @default(cuid())
 
     firstName String?
     lastName  String?
@@ -21,6 +21,35 @@ model User {
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
 
-    credits      Int      @default(150)
+    credits Int @default(150)
 
+    UserToProject UserToProject[]
+}
+
+model Project {
+    id          String   @id @default(cuid())
+    name        String
+    repoUrl     String
+    githubUrl   String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    deletedAt DateTime?
+
+    UserToProject UserToProject[]
+    
+}
+
+model UserToProject {
+    id String @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    userId String
+    projectId String
+
+    user User @relation(fields: [userId], references: [id])
+    project Project @relation(fields: [projectId], references: [id])
+
+    @@unique([userId, projectId])
 }
