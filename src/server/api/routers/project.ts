@@ -1,3 +1,4 @@
+import { pullCommits } from "~/lib/github";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 
@@ -21,6 +22,7 @@ export const projectRouter = createTRPCRouter({
                     }
                 }
             })
+            await pullCommits(project.id);
             // ctx.user.userId
             return project;
         })
