@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
+import useRefresh from "~/hooks/use-refresh"
 import { api } from "~/trpc/react"
 
 type FormInput = {
@@ -19,6 +20,7 @@ type FormInput = {
 const CreatePage = () => {
     const { register, handleSubmit, reset } = useForm<FormInput>()
     const createProject = api.project.createProject.useMutation()
+    const refresh = useRefresh()
 
     const onSubmit = (data: FormInput) => {
         // window.alert(JSON.stringify(data))
@@ -29,6 +31,7 @@ const CreatePage = () => {
         }, {
             onSuccess: () => {
                 toast.success('Project created successfully')
+                refresh()
             }
         })
         console.log(data)
