@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React from 'react'
 import useProject from '~/hooks/use-project';
 import { getCommitsHashes, pullCommits } from '~/lib/github';
+import CommitLog from './commit-log';
 
  function DashboardPage() {
   const { project } = useProject()
@@ -56,7 +57,7 @@ import { getCommitsHashes, pullCommits } from '~/lib/github';
       </div>
 
       <div className='mt-8'></div>
-      commit log
+      <CommitLog />
 
     </div>
   )
